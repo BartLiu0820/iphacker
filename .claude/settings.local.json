@@ -37,7 +37,11 @@
       "WebSearch",
       "Bash(pip install *)",
       "Bash(pip list *)",
-      "Bash(del *)"
+      "Bash(del *)",
+      "Bash(node --check chrome-extension/generator.js)",
+      "Bash(node --check chrome-extension/popup.js)",
+      "Bash(node *)",
+      "Bash(zip -r ../clash-config-generator-v1.0.zip .)"
     ]
   }
 }

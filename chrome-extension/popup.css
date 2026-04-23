@@ -1,0 +1,373 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 12px;
+    width: 400px;
+    min-width: 360px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    padding: 6px 0 10px;
+    color: white;
+}
+
+header h1 {
+    font-size: 1.2em;
+    margin-bottom: 4px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.subtitle {
+    font-size: 0.8em;
+    opacity: 0.85;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.upload-area {
+    border: 2px dashed #d1d5db;
+    border-radius: 6px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fafafa;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#fileInput {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.upload-area:hover {
+    border-color: #667eea;
+    background: #f0f4ff;
+}
+
+.upload-area.dragover {
+    border-color: #667eea;
+    background: #e0e7ff;
+}
+
+.upload-icon {
+    font-size: 1.8em;
+    flex-shrink: 0;
+}
+
+.upload-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.upload-text p {
+    color: #4b5563;
+    font-size: 0.88em;
+}
+
+.upload-text .hint {
+    color: #9ca3af;
+    font-size: 0.75em;
+}
+
+.file-list {
+    margin-top: 8px;
+}
+
+.file-placeholder {
+    color: #9ca3af;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.82em;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    background: #f9fafb;
+    border-radius: 5px;
+    margin-bottom: 4px;
+    border: 1px solid #e5e7eb;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.file-icon {
+    font-size: 1em;
+}
+
+.file-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.file-name {
+    font-weight: 500;
+    color: #111827;
+    font-size: 0.78em;
+}
+
+.file-actions {
+    display: flex;
+    gap: 2px;
+}
+
+.btn-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    border-radius: 4px;
+    transition: background 0.2s;
+    font-size: 0.85em;
+}
+
+.btn-icon:hover {
+    background: #e5e7eb;
+}
+
+.btn-icon.remove:hover {
+    background: #fee2e2;
+}
+
+.form-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 0;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 4px;
+    color: #374151;
+    font-weight: 500;
+    font-size: 0.82em;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 6px 10px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 5px;
+    font-size: 0.88em;
+    transition: border-color 0.3s;
+}
+
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn {
+    padding: 7px 14px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.85em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 7px 16px;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(102, 126, 234, 0.35);
+}
+
+.btn-secondary {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.btn-secondary:hover {
+    background: #e5e7eb;
+}
+
+.btn-sm {
+    padding: 3px 8px;
+    font-size: 0.75em;
+}
+
+.status-content {
+    display: flex;
+    align-items: center;
+}
+
+.status-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #10b981;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.status-text {
+    color: #374151;
+    font-weight: 500;
+    font-size: 0.85em;
+}
+
+.log-container {
+    background: #1f2937;
+    border-radius: 5px;
+    padding: 8px;
+    height: 120px;
+    overflow-y: auto;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.72em;
+    line-height: 1.4;
+}
+
+.log-placeholder {
+    color: #6b7280;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.log-entry {
+    color: #d1d5db;
+    padding: 2px 0;
+    border-bottom: 1px solid #374151;
+}
+
+.log-entry.success {
+    color: #10b981;
+}
+
+.log-entry.error {
+    color: #ef4444;
+}
+
+.log-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+}
+
+.log-title {
+    font-size: 0.82em;
+    font-weight: 500;
+    color: #374151;
+}
+
+.log-toggle {
+    font-size: 0.75em;
+    color: #6b7280;
+    transition: transform 0.2s ease;
+}
+
+.log-body {
+    margin-top: 6px;
+}
+
+.log-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.preview-actions {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.preview-container {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    padding: 8px;
+    max-height: 140px;
+    overflow: auto;
+}
+
+.preview-container pre {
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 0.72em;
+    line-height: 1.4;
+    color: #374151;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+footer {
+    text-align: center;
+    padding: 4px;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.75em;
+}
+
+.hidden {
+    display: none !important;
+}
+
+[hidden] {
+    display: none !important;
+}

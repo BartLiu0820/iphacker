@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash三段式配置生成器</title>
+    <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Clash三段式配置生成器</h1>
+            <p class="subtitle">国内直连 | 国外代理 | AI专用静态IP</p>
+        </header>
+
+        <main>
+            <div class="card">
+                <div class="upload-area" id="uploadArea">
+                    <span class="upload-icon">&#128194;</span>
+                    <div class="upload-text">
+                        <p>拖拽文件到此处，或点击选择文件</p>
+                        <span class="hint">支持：节点信息.yaml、静态住宅IP.txt</span>
+                    </div>
+                    <input type="file" id="fileInput" accept=".yaml,.yml,.txt" multiple>
+                </div>
+                <div class="file-list" id="fileList"></div>
+            </div>
+
+            <div class="card">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="outputName">输出文件名</label>
+                        <input type="text" id="outputName" value="三段式配置文件.yaml" placeholder="三段式配置文件.yaml">
+                    </div>
+                    <button class="btn btn-primary" id="generateBtn" disabled>
+                        <span class="btn-text">生成配置</span>
+                        <span class="btn-loading" hidden>生成中...</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="card" id="statusCard" hidden>
+                <div class="status-content">
+                    <div class="status-indicator" id="statusIndicator">
+                        <span class="status-dot"></span>
+                        <span class="status-text">准备就绪</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="logCard">
+                <div class="log-header" id="logHeader">
+                    <span class="log-title">运行日志</span>
+                    <span class="log-toggle" id="logToggle">▶</span>
+                </div>
+                <div class="log-body" id="logBody" hidden>
+                    <div class="log-container" id="logContainer">
+                        <div class="log-placeholder">等待生成...</div>
+                    </div>
+                    <div class="log-actions">
+                        <button class="btn btn-sm btn-secondary" id="clearLogsBtn">清空</button>
+                        <button class="btn btn-sm btn-secondary" id="downloadLogsBtn">下载日志</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="previewCard" hidden>
+                <div class="preview-actions">
+                    <button class="btn btn-sm btn-primary" id="downloadBtn">下载配置</button>
+                </div>
+                <div class="preview-container">
+                    <pre id="previewContent"></pre>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>版本 1.0 | BartLiu</p>
+        </footer>
+    </div>
+
+    <script src="generator.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

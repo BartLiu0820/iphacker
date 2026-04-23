@@ -1,0 +1,43 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python clash_config_generator.py)",
+      "Bash(python3 *)",
+      "PowerShell(python clash_config_generator.py)",
+      "Bash(python config_generator.py)",
+      "Bash(dir \"D:\\\\程序文件\\\\静态IP配置i脚本\")",
+      "Bash(rm -f 三段式节点信息_生成.yaml 三段式节点信息_v2.yaml)",
+      "Bash(ls -la *.py *.bat *.txt *.md)",
+      "Read(//d/d/程序文件/**)",
+      "Bash(python config_generator.py --help)",
+      "Bash(awk '{print $9, $5}')",
+      "Bash(python -m py_compile config_generator.py)",
+      "Bash(python -c \"import config_generator\")",
+      "Bash(python *)",
+      "PowerShell(Get-Command *)",
+      "PowerShell($bytes = Get-Content -Path \"config_generator_web.py\" -Encoding Byte -TotalCount 3; Write-Host \"First 3 bytes: $\\($bytes -join ' '\\)\"; if \\($bytes[0] -eq 239 -and $bytes[1] -eq 187 -and $bytes[2] -eq 191\\) { Write-Host \"BOM detected\" } else { Write-Host \"No BOM\" })",
+      "PowerShell(Test-Path *)",
+      "Bash(cmd /c \"D:\\\\程序文件\\\\静态IP配置i脚本\\\\启动Web界面.bat\")",
+      "Bash(curl -s http://localhost:8889/api/status)",
+      "Bash(curl -s http://localhost:8889/script.js)",
+      "Bash(curl -s http://localhost:8889/style.css)",
+      "Bash(taskkill /F /IM python.exe)",
+      "Bash(netstat -ano)",
+      "Bash(findstr :8889)",
+      "Bash(taskkill /F /PID 11680)",
+      "Bash(taskkill /F /PID 14992)",
+      "Bash(taskkill /F /PID 6488)",
+      "PowerShell(Stop-Process *)",
+      "PowerShell($env:PYTHONIOENCODING=\"utf-8\"; Start-Process python -ArgumentList \"config_generator_web.py\",\"8889\" -WindowStyle Hidden; Start-Sleep -Seconds 3; Invoke-RestMethod -Uri \"http://localhost:8889/api/status\")",
+      "Bash(sed \"s/^ js = '''//; s/^'''$//\")",
+      "Bash(node --check /tmp/test_script.js)",
+      "Bash(xxd)",
+      "Bash(printf \"s = '''\\\\\\\\\\\\\\\\n'''\\\\nprint\\(repr\\(s\\)\\)\\\\n\")",
+      "Bash(grep -n '\\\\\\\\')",
+      "WebSearch",
+      "Bash(pip install *)",
+      "Bash(pip list *)",
+      "Bash(del *)"
+    ]
+  }
+}

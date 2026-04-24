@@ -41,11 +41,8 @@ python config_generator_web.py [端口]
 
 ### 方式二：Chrome 扩展
 
-1. 打开 Chrome 浏览器，进入 `chrome://extensions/`
-2. 开启右上角「开发者模式」
-3. 点击「加载已解压的扩展程序」
-4. 选择 `chrome-extension` 文件夹
-5. 点击浏览器工具栏图标即可使用
+1. 打开 Chrome 浏览器，进入 `https://chromewebstore.google.com/detail/clash%E4%B8%89%E6%AE%B5%E5%BC%8F%E9%85%8D%E7%BD%AE%E7%94%9F%E6%88%90%E5%99%A8/jdbhhffpmnldknmcpgfoobbalkcmggkd?hl=zh-CN&utm_source=ext_sidebar`
+2. 下载扩展进行操作
 
 ## 输入文件格式
 

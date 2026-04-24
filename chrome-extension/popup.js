@@ -8,6 +8,9 @@ function getEl(id) { return document.getElementById(id); }
 let uploadArea, fileInput, fileList, generateBtn, outputName;
 let statusCard, statusText, statusDot, logContainer, previewCard, previewContent;
 let logHeader, logBody, logToggle;
+let helpBtn, helpContent, toolView, helpView, backBtn;
+let helpLoaded = false;
+let imgLightbox, lightboxImg;
 
 function initElements() {
     uploadArea = getEl('uploadArea');
@@ -24,6 +27,13 @@ function initElements() {
     logHeader = getEl('logHeader');
     logBody = getEl('logBody');
     logToggle = getEl('logToggle');
+    helpBtn = getEl('helpBtn');
+    helpContent = getEl('helpContent');
+    toolView = getEl('toolView');
+    helpView = getEl('helpView');
+    backBtn = getEl('backBtn');
+    imgLightbox = getEl('imgLightbox');
+    lightboxImg = getEl('lightboxImg');
 }
 
 // 安全初始化（兼容DOMContentLoaded已触发的情况）
@@ -92,6 +102,48 @@ function setupEventListeners() {
                 logBody.setAttribute('hidden', '');
                 logToggle.textContent = '▶';
             }
+        });
+    }
+
+    // 帮助按钮 - 在工具页和帮助页之间切换
+    if (helpBtn && toolView && helpView) {
+        helpBtn.addEventListener('click', async () => {
+            const isToolVisible = !toolView.hasAttribute('hidden');
+            if (isToolVisible) {
+                toolView.setAttribute('hidden', '');
+                helpView.removeAttribute('hidden');
+                if (!helpLoaded && helpContent) {
+                    await loadHelpContent();
+                }
+            } else {
+                helpView.setAttribute('hidden', '');
+                toolView.removeAttribute('hidden');
+            }
+        });
+    }
+
+    // 返回按钮 - 切换回工具视图
+    if (backBtn && toolView && helpView) {
+        backBtn.addEventListener('click', () => {
+            helpView.setAttribute('hidden', '');
+            toolView.removeAttribute('hidden');
+        });
+    }
+
+    // 帮助内容中的图片点击放大
+    if (helpContent && imgLightbox && lightboxImg) {
+        helpContent.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                lightboxImg.src = e.target.src;
+                imgLightbox.removeAttribute('hidden');
+            }
+        });
+    }
+
+    // 点击遮罩层或关闭按钮关闭放大图片
+    if (imgLightbox) {
+        imgLightbox.addEventListener('click', () => {
+            imgLightbox.setAttribute('hidden', '');
         });
     }
 }
@@ -363,4 +415,116 @@ function downloadConfig() {
     a.download = outputFile;
     a.click();
     URL.revokeObjectURL(url);
+}
+
+async function loadHelpContent() {
+    if (!helpContent) return;
+    try {
+        const url = chrome.runtime.getURL('help/help.md');
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('无法加载帮助文件');
+        }
+        const text = await response.text();
+        helpContent.innerHTML = simpleMarkdownToHtml(text);
+        helpLoaded = true;
+    } catch (err) {
+        helpContent.innerHTML = `<div class="help-placeholder" style="color:#ef4444">加载帮助失败: ${err.message}</div>`;
+    }
+}
+
+function simpleMarkdownToHtml(md) {
+    let html = md
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+
+    // ### headings
+    html = html.replace(/^###\s+(.+)$/gm, '<h3>$1</h3>');
+
+    // **bold**
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+
+    // images ![alt](url)
+    html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1">');
+
+    // links [text](url)
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+
+    // lines starting with - (support nested lists via indentation)
+    const lines = html.split('\n');
+    const out = [];
+    const listStack = []; // tracks open <ul> levels
+
+    function getIndentLevel(line) {
+        let spaces = 0;
+        while (spaces < line.length && line[spaces] === ' ') {
+            spaces++;
+        }
+        return Math.floor(spaces / 2);
+    }
+
+    function closeListsDownTo(targetLevel) {
+        while (listStack.length > targetLevel) {
+            out.push('</li>');
+            out.push('</ul>');
+            listStack.pop();
+        }
+    }
+
+    for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+        const trimmed = line.trim();
+
+        if (trimmed.startsWith('- ')) {
+            const level = getIndentLevel(line);
+            const content = trimmed.slice(2);
+
+            if (listStack.length === 0) {
+                // First list item
+                out.push('<ul>');
+                out.push('<li>' + content);
+                listStack.push(level);
+            } else if (level > listStack[listStack.length - 1]) {
+                // Nested deeper: open new sublist inside previous li
+                out.push('<ul>');
+                out.push('<li>' + content);
+                listStack.push(level);
+            } else if (level === listStack[listStack.length - 1]) {
+                // Same level: close previous li, start new one
+                out.push('</li>');
+                out.push('<li>' + content);
+            } else {
+                // Less indented: close lists back to this level
+                closeListsDownTo(level);
+                out.push('</li>');
+                out.push('<li>' + content);
+            }
+        } else {
+            // Non-list line
+            if (listStack.length > 0) {
+                closeListsDownTo(0);
+                out.push('</li>');
+                out.push('</ul>');
+                listStack.length = 0;
+            }
+
+            if (trimmed === '') {
+                out.push('');
+            } else if (!trimmed.startsWith('<')) {
+                out.push('<p>' + line + '</p>');
+            } else {
+                out.push(line);
+            }
+        }
+    }
+
+    // Close any remaining lists
+    while (listStack.length > 0) {
+        out.push('</li>');
+        out.push('</ul>');
+        listStack.pop();
+    }
+
+    return out.join('\n');
 }

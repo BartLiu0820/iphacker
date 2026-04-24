@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Clash三段式配置生成器",
-  "version": "1.0",
+  "version": "1.1",
   "description": "国内直连 | 国外代理 | AI专用静态IP - Clash配置生成工具",
   "action": {
     "default_popup": "popup.html",
@@ -15,5 +15,11 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["help/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

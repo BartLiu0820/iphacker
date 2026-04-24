@@ -41,7 +41,13 @@
       "Bash(node --check chrome-extension/generator.js)",
       "Bash(node --check chrome-extension/popup.js)",
       "Bash(node *)",
-      "Bash(zip -r ../clash-config-generator-v1.0.zip .)"
+      "Bash(zip -r ../clash-config-generator-v1.0.zip .)",
+      "Bash(mkdir -p 'D:\\\\程序文件\\\\静态IP配置i脚本\\\\chrome-extension\\\\help')",
+      "Bash(cp 'D:\\\\程序文件\\\\静态IP配置i脚本\\\\help\\\\step1.png' 'D:\\\\程序文件\\\\静态IP配置i脚本\\\\chrome-extension\\\\help\\\\step1.png')",
+      "Bash(cp 'D:\\\\程序文件\\\\静态IP配置i脚本\\\\help\\\\step2.png' 'D:\\\\程序文件\\\\静态IP配置i脚本\\\\chrome-extension\\\\help\\\\step2.png')",
+      "Bash(cp 'D:\\\\程序文件\\\\静态IP配置i脚本\\\\help\\\\step3.png' 'D:\\\\程序文件\\\\静态IP配置i脚本\\\\chrome-extension\\\\help\\\\step3.png')",
+      "Bash(cp 'D:\\\\程序文件\\\\静态IP配置i脚本\\\\help\\\\step4.png' 'D:\\\\程序文件\\\\静态IP配置i脚本\\\\chrome-extension\\\\help\\\\step4.png')",
+      "Bash(unzip *)"
     ]
   }
 }
